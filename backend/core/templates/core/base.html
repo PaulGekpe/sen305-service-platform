@@ -10,9 +10,25 @@
   <header class="site-header">
     <nav class="site-nav" aria-label="Main">
       <a class="brand" href="{% url 'core:home' %}">SEN305 Service Platform</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'requests:list' %}">Requests</a>
+      <span class="nav-user">{{ user.username }}</span>
+      <form method="post" action="{% url 'logout' %}" class="nav-form">
+        {% csrf_token %}<button type="submit">Sign out</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Sign in</a>
+      {% endif %}
     </nav>
   </header>
   <main class="container">
+    {% if messages %}
+    <div class="messages" aria-live="polite">
+      {% for message in messages %}
+      <p class="message {{ message.tags }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
   <footer class="site-footer">VUA-SEN305 Semester Project</footer>

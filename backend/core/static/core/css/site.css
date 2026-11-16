@@ -11,3 +11,33 @@ a { color: #17365d; }
 .site-footer { border-top: 1px solid #d6dbe2; text-align: center; padding: 1rem; color: #5b6572; font-size: .9rem; }
 .button, button[type="submit"] { display: inline-block; background: #17365d; color: #fff; border: 0; border-radius: .25rem; padding: .55rem 1rem; text-decoration: none; cursor: pointer; font: inherit; }
 .button:hover, button[type="submit"]:hover { background: #0f2540; }
+
+/* Lab Session 4: minimal usable styling */
+.page-header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.filters { display:flex; flex-wrap:wrap; gap:1rem; align-items:end; margin:1rem 0; }
+.form-row { margin-bottom:1rem; }
+.form-row label { display:block; font-weight:600; margin-bottom:.25rem; }
+.form-control, input, select, textarea { width:100%; max-width:42rem; padding:.6rem; }
+.data-table { width:100%; border-collapse:collapse; }
+.data-table th, .data-table td { border:1px solid #d6dbe2; padding:.65rem; text-align:left; }
+.request-meta { display:grid; grid-template-columns:8rem 1fr; gap:.4rem 1rem; }
+.request-meta dt { font-weight:700; }
+.comment { border-left:4px solid #17365d; padding:.5rem 1rem; margin:1rem 0; background:#f5f7fa; }
+.message { padding:.75rem; border-radius:.25rem; }
+.message.success { background:#e5f6ea; color:#174d28; }
+.message.error, .error { color:#8a1c1c; }
+.nav-form { display:inline; }
+.nav-form button { background:none; border:0; color:inherit; text-decoration:underline; cursor:pointer; }
+
+/* Lab Session 4: summary cards, panels, pager (Part M) */
+.summary { display:flex; gap:1rem; margin:1rem 0; flex-wrap:wrap; }
+.summary-card { flex:1 1 8rem; border:1px solid #d6dbe2; border-radius:.35rem; padding:.75rem 1rem; background:#f5f7fa; display:flex; flex-direction:column; }
+.summary-number { font-size:1.8rem; font-weight:700; color:#17365d; line-height:1.1; }
+.summary-label { color:#5b6572; font-size:.9rem; }
+.panel { border:1px solid #d6dbe2; border-radius:.35rem; padding:.5rem 1rem 1rem; margin:1.25rem 0; }
+.panel h2 { margin-top:.5rem; }
+.pager { display:flex; gap:1rem; align-items:center; margin:1rem 0; }
+.messages { margin-bottom:1rem; }
+.message.error { background:#fdeaea; }
+.nav-user { color:#c9d6e8; font-size:.9rem; }
+.helptext { display:block; color:#5b6572; font-size:.85rem; }
