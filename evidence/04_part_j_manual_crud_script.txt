@@ -1,0 +1,31 @@
+# Part J - Manual CRUD test script (real Chrome browser against runserver)
+# generated 2026-11-16 16:25:19 +0100
+
+$ python manage.py runserver 127.0.0.1:8765   # DEBUG=False so the real 403/404 pages are shown
+
+$ python evidence/browser_walkthrough.py
+[PASS] 1. Open /requests/ signed out: HTTP 302 -> /accounts/login/?next=/requests/; browser landed on /accounts/login/?next=/requests/
+[PASS] 2. Sign in as requester1: Landed on /requests/; heading 'Service requests'
+[PASS] 3. Submit empty create form: 4 inline errors (This field is required.); rows 15 -> 15
+[PASS] 4. Create valid HIGH-priority request: Redirected to /requests/2fb1e89e-16d3-4ced-8a62-85d2c399fb66/; message 'Service request created.'; priority 'High'
+[PASS] 5. Edit title and location: Detail shows title 'Projector in Room B12 has no HDMI signal' and location 'Room B12, Block B'; message 'Service request updated.'
+[PASS] 6. Add a comment: Comment shows author 'requester1' at '16 Nov 2026 16:25'
+[PASS] 7. As requester2 paste detail URL: HTTP 404; page text: '404 - Not found The page you asked for does not exist, or you do not have access to it. Return home'
+[PASS] 8. As technician1 open request: HTTP 200; sees 'Projector in Room B12 has no HDMI signal' and the Assign technician form
+[PASS] 9. Use Back after successful POST: rows before 16, after submit 17, after Back 17, after reload 17
+assign: Technician assigned. | status: Assigned
+requester sees assign/resolve forms: 0
+blank resolve: ['Work notes: This field is required.']
+resolve: Request resolved. | status: Resolved
+page 2 q value: printer | status: OPEN | pager: Previous Page 2 of 2
+
+9/9 manual steps passed
+
+$ python manage.py shell   # database verification
+# --- statements typed/pasted into the shell ---
+from requests_app.models import Comment, ServiceRequest
+print(ServiceRequest.objects.values("id", "requester__username", "title", "status"))
+print(Comment.objects.values("service_request_id", "author__username", "body"))
+# --- output ---
+<QuerySet [{'id': UUID('cc79e672-9956-4ac3-92cb-258a6136ff78'), 'requester__username': 'requester1', 'title': 'Back button duplicate test', 'status': 'OPEN'}, {'id': UUID('2fb1e89e-16d3-4ced-8a62-85d2c399fb66'), 'requester__username': 'requester1', 'title': 'Projector in Room B12 has no HDMI signal', 'status': 'RESOLVED'}, {'id': UUID('aa8d5905-26d0-43a3-aab6-a605e1cd5472'), 'requester__username': 'requester1', 'title': 'Printer jam in office 14', 'status': 'OPEN'}, {'id': UUID('0d2c41b8-065b-42f5-8f92-b31f727a09f4'), 'requester__username': 'requester1', 'title': 'Printer jam in office 13', 'status': 'OPEN'}, {'id': UUID('1b23586e-0bb1-492b-8302-d77012c345b7'), 'requester__username': 'requester1', 'title': 'Printer jam in office 12', 'status': 'OPEN'}, {'id': UUID('c350b3bc-0367-4f84-8fa6-bcf0cd9f67e5'), 'requester__username': 'requester1', 'title': 'Printer jam in office 11', 'status': 'OPEN'}, {'id': UUID('1e9e1aa9-1a14-43f1-a9d8-8314fbba3de0'), 'requester__username': 'requester1', 'title': 'Printer jam in office 10', 'status': 'OPEN'}, {'id': UUID('1c01a6c5-d2f8-45f3-857d-fc36f1e271ca'), 'requester__username': 'requester1', 'title': 'Printer jam in office 09', 'status': 'OPEN'}, {'id': UUID('c71db349-e6f3-487a-9c4c-bb25d557e841'), 'requester__username': 'requester1', 'title': 'Printer jam in office 08', 'status': 'OPEN'}, {'id': UUID('566f8f54-da15-4b7e-84d3-8d9a2ec800b1'), 'requester__username': 'requester1', 'title': 'Printer jam in office 07', 'status': 'OPEN'}, {'id': UUID('499a7192-fef1-4f00-bfc1-4100a8248ad9'), 'requester__username': 'requester1', 'title': 'Printer jam in office 06', 'status': 'OPEN'}, {'id': UUID('874eded1-a686-46b1-b1ce-47dd943df23e'), 'requester__username': 'requester1', 'title': 'Printer jam in office 05', 'status': 'OPEN'}, {'id': UUID('8593032d-fd35-4a9f-a095-45b7bd586582'), 'requester__username': 'requester1', 'title': 'Printer jam in office 04', 'status': 'OPEN'}, {'id': UUID('91d70d07-f990-422b-b13d-ed6c6cd119b0'), 'requester__username': 'requester1', 'title': 'Printer jam in office 03', 'status': 'OPEN'}, {'id': UUID('85e12c52-c202-40b9-9ba7-78c969fb8ca9'), 'requester__username': 'requester1', 'title': 'Printer jam in office 02', 'status': 'OPEN'}, {'id': UUID('c67c00e6-2fb4-466d-ba8f-e72d1e0fcee0'), 'requester__username': 'requester1', 'title': 'Printer jam in office 01', 'status': 'OPEN'}, {'id': UUID('047e0d4b-ae65-4fb0-be20-a646d8a18201'), 'requester__username': 'requester1', 'title': 'Laboratory computer cannot start', 'status': 'OPEN'}]>
+<QuerySet [{'service_request_id': UUID('2fb1e89e-16d3-4ced-8a62-85d2c399fb66'), 'author__username': 'requester1', 'body': 'The same cable works on another projector.'}]>

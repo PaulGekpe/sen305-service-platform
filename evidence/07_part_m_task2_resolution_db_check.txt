@@ -1,0 +1,23 @@
+# Part M Task 2 - Verify status, resolved_at, work_notes, completed_at
+# generated 2026-11-16 16:25:20 +0100
+
+$ python manage.py shell
+# --- statements typed/pasted into the shell ---
+from requests_app.models import ServiceRequest, WorkOrder
+for item in ServiceRequest.objects.filter(status="RESOLVED"):
+    wo = item.work_order
+    print("request:", item.title)
+    print("  status      :", item.status)
+    print("  resolved_at :", item.resolved_at)
+    print("  technician  :", wo.technician.username)
+    print("  work_notes  :", wo.work_notes)
+    print("  completed_at:", wo.completed_at)
+    print("  resolved_at == completed_at:", item.resolved_at == wo.completed_at)
+# --- output ---
+request: Projector in Room B12 has no HDMI signal
+  status      : RESOLVED
+  resolved_at : 2026-11-16 15:25:18.848077+00:00
+  technician  : technician1
+  work_notes  : Replaced the faulty HDMI cable and tested the projector.
+  completed_at: 2026-11-16 15:25:18.848077+00:00
+  resolved_at == completed_at: True

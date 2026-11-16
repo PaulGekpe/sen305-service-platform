@@ -1,0 +1,17 @@
+# Environment used to produce this evidence
+# generated 2026-11-16 16:25:08 +0100
+
+$ python --version
+3.13.18
+
+$ python -m django --version
+5.2.19
+
+$ database backend / version used for this run
+sqlite 3.53.1
+
+$ uname -sr
+Linux 6.18.44-fc-v470
+
+NOTE: this run used SQLite because no MySQL server was available in the sandbox. The code is
+backend-neutral (ORM only); re-run the same commands against MySQL 8 on your own machine.

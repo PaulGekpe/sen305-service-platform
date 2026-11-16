@@ -1,0 +1,100 @@
+# Part L and Part M Task 5 - Automated tests
+# generated 2026-11-16 16:25:20 +0100
+
+$ python manage.py check
+System check identified no issues (0 silenced).
+
+$ python manage.py test requests_app.tests -v 2
+Found 56 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: admin, auth, contenttypes, requests_app, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying requests_app.0001_initial... OK
+  Applying sessions.0001_initial... OK
+System check identified no issues (0 silenced).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+test_invalid_post_does_not_create_request (requests_app.tests.test_request_crud.ServiceRequestCrudTests.test_invalid_post_does_not_create_request) ... ok
+test_list_requires_login (requests_app.tests.test_request_crud.ServiceRequestCrudTests.test_list_requires_login) ... ok
+test_other_requester_receives_404 (requests_app.tests.test_request_crud.ServiceRequestCrudTests.test_other_requester_receives_404) ... ok
+test_owner_can_open_detail (requests_app.tests.test_request_crud.ServiceRequestCrudTests.test_owner_can_open_detail) ... ok
+test_valid_post_creates_request_for_logged_in_user (requests_app.tests.test_request_crud.ServiceRequestCrudTests.test_valid_post_creates_request_for_logged_in_user) ... ok
+test_every_request_url_redirects_anonymous_users_to_login (requests_app.tests.test_request_security.AnonymousAccessTests.test_every_request_url_redirects_anonymous_users_to_login) ... ok
+test_login_page_signs_a_user_in_and_lands_on_the_list (requests_app.tests.test_request_security.AnonymousAccessTests.test_login_page_signs_a_user_in_and_lands_on_the_list) ... ok
+test_logout_requires_post_and_returns_home (requests_app.tests.test_request_security.AnonymousAccessTests.test_logout_requires_post_and_returns_home) ... ok
+test_comment_author_comes_from_the_logged_in_user (requests_app.tests.test_request_security.CommentTests.test_comment_author_comes_from_the_logged_in_user) ... ok
+test_comment_endpoint_is_post_only (requests_app.tests.test_request_security.CommentTests.test_comment_endpoint_is_post_only) ... ok
+test_internal_comments_are_hidden_from_requesters_but_not_staff (requests_app.tests.test_request_security.CommentTests.test_internal_comments_are_hidden_from_requesters_but_not_staff) ... ok
+test_short_comment_is_rejected_with_a_message (requests_app.tests.test_request_security.CommentTests.test_short_comment_is_rejected_with_a_message) ... ok
+test_every_mutating_form_renders_a_csrf_token (requests_app.tests.test_request_security.CsrfAndRedirectTests.test_every_mutating_form_renders_a_csrf_token) ... ok
+test_post_without_a_csrf_token_is_rejected (requests_app.tests.test_request_security.CsrfAndRedirectTests.test_post_without_a_csrf_token_is_rejected) ... ok
+test_successful_create_redirects_so_a_refresh_does_not_duplicate (requests_app.tests.test_request_security.CsrfAndRedirectTests.test_successful_create_redirects_so_a_refresh_does_not_duplicate) ... ok
+test_edit_link_visibility_matches_the_server_rule (requests_app.tests.test_request_security.EditRuleTests.test_edit_link_visibility_matches_the_server_rule) ... ok
+test_inactive_category_is_not_accepted (requests_app.tests.test_request_security.EditRuleTests.test_inactive_category_is_not_accepted) ... ok
+test_owner_can_edit_an_open_request (requests_app.tests.test_request_security.EditRuleTests.test_owner_can_edit_an_open_request) ... ok
+test_owner_cannot_edit_once_the_request_is_assigned (requests_app.tests.test_request_security.EditRuleTests.test_owner_cannot_edit_once_the_request_is_assigned) ... ok
+test_server_owned_fields_cannot_be_posted (requests_app.tests.test_request_security.EditRuleTests.test_server_owned_fields_cannot_be_posted) ... ok
+test_staff_can_edit_an_assigned_request (requests_app.tests.test_request_security.EditRuleTests.test_staff_can_edit_an_assigned_request) ... ok
+test_list_never_contains_another_requesters_rows (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_list_never_contains_another_requesters_rows) ... ok
+test_other_requester_cannot_comment (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_other_requester_cannot_comment) ... ok
+test_other_requester_cannot_open_the_edit_page (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_other_requester_cannot_open_the_edit_page) ... ok
+test_other_requester_cannot_resolve (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_other_requester_cannot_resolve) ... ok
+test_other_requester_cannot_update (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_other_requester_cannot_update) ... ok
+test_other_requester_is_refused_assignment_with_403 (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_other_requester_is_refused_assignment_with_403) ... ok
+test_the_404_page_does_not_name_the_owner_or_title (requests_app.tests.test_request_security.ObjectLevelAuthorizationTests.test_the_404_page_does_not_name_the_owner_or_title) ... ok
+test_assignment_form_rejects_a_non_staff_technician (requests_app.tests.test_request_workflow.AssignmentTests.test_assignment_form_rejects_a_non_staff_technician) ... ok
+test_assignment_is_atomic (requests_app.tests.test_request_workflow.AssignmentTests.test_assignment_is_atomic)
+If the status write fails, the WorkOrder row created a moment earlier is rolled back. ... ok
+test_completed_request_cannot_be_assigned (requests_app.tests.test_request_workflow.AssignmentTests.test_completed_request_cannot_be_assigned) ... ok
+test_non_staff_assignment_returns_403_and_creates_no_work_order (requests_app.tests.test_request_workflow.AssignmentTests.test_non_staff_assignment_returns_403_and_creates_no_work_order) ... ok
+test_reassignment_updates_the_same_work_order (requests_app.tests.test_request_workflow.AssignmentTests.test_reassignment_updates_the_same_work_order) ... ok
+test_service_rejects_a_non_staff_technician_even_without_the_form (requests_app.tests.test_request_workflow.AssignmentTests.test_service_rejects_a_non_staff_technician_even_without_the_form) ... ok
+test_staff_assignment_creates_one_work_order_and_sets_assigned (requests_app.tests.test_request_workflow.AssignmentTests.test_staff_assignment_creates_one_work_order_and_sets_assigned) ... ok
+test_assignment_form_is_shown_only_to_staff (requests_app.tests.test_request_workflow.DetailPageVisibilityTests.test_assignment_form_is_shown_only_to_staff) ... ok
+test_resolve_form_needs_a_work_order_and_the_right_person (requests_app.tests.test_request_workflow.DetailPageVisibilityTests.test_resolve_form_needs_a_work_order_and_the_right_person) ... ok
+test_resolved_request_shows_work_notes_and_hides_the_forms (requests_app.tests.test_request_workflow.DetailPageVisibilityTests.test_resolved_request_shows_work_notes_and_hides_the_forms) ... ok
+test_middle_page_has_previous_and_next_links_with_filters (requests_app.tests.test_request_workflow.FilteredPaginationTests.test_middle_page_has_previous_and_next_links_with_filters) ... ok
+test_page_two_keeps_search_text_and_status (requests_app.tests.test_request_workflow.FilteredPaginationTests.test_page_two_keeps_search_text_and_status) ... ok
+test_search_text_is_url_encoded (requests_app.tests.test_request_workflow.FilteredPaginationTests.test_search_text_is_url_encoded) ... ok
+test_unknown_status_is_ignored (requests_app.tests.test_request_workflow.FilteredPaginationTests.test_unknown_status_is_ignored) ... ok
+test_without_filters_links_only_carry_the_page (requests_app.tests.test_request_workflow.FilteredPaginationTests.test_without_filters_links_only_carry_the_page) ... ok
+test_a_resolved_request_cannot_be_resolved_twice (requests_app.tests.test_request_workflow.ResolutionTests.test_a_resolved_request_cannot_be_resolved_twice) ... ok
+test_assigned_technician_resolution_changes_both_models (requests_app.tests.test_request_workflow.ResolutionTests.test_assigned_technician_resolution_changes_both_models) ... ok
+test_requester_who_is_not_staff_cannot_resolve (requests_app.tests.test_request_workflow.ResolutionTests.test_requester_who_is_not_staff_cannot_resolve) ... ok
+test_resolution_is_atomic (requests_app.tests.test_request_workflow.ResolutionTests.test_resolution_is_atomic)
+If the request update fails, the WorkOrder completion written first is rolled back. ... ok
+test_resolution_requires_work_notes (requests_app.tests.test_request_workflow.ResolutionTests.test_resolution_requires_work_notes) ... ok
+test_resolution_without_assignment_leaves_request_unchanged (requests_app.tests.test_request_workflow.ResolutionTests.test_resolution_without_assignment_leaves_request_unchanged) ... ok
+test_unauthorised_caller_gets_403_even_with_invalid_input (requests_app.tests.test_request_workflow.ResolutionTests.test_unauthorised_caller_gets_403_even_with_invalid_input) ... ok
+test_list_uses_a_constant_number_of_queries (requests_app.tests.test_request_workflow.SelectorVisibilityTests.test_list_uses_a_constant_number_of_queries) ... ok
+test_row_level_visibility (requests_app.tests.test_request_workflow.SelectorVisibilityTests.test_row_level_visibility) ... ok
+test_counts_are_not_inflated_by_comments (requests_app.tests.test_request_workflow.SummaryCountTests.test_counts_are_not_inflated_by_comments) ... ok
+test_counts_for_a_requester_cover_only_visible_requests (requests_app.tests.test_request_workflow.SummaryCountTests.test_counts_for_a_requester_cover_only_visible_requests) ... ok
+test_counts_for_staff_cover_everything (requests_app.tests.test_request_workflow.SummaryCountTests.test_counts_for_staff_cover_everything) ... ok
+test_list_page_shows_the_counts (requests_app.tests.test_request_workflow.SummaryCountTests.test_list_page_shows_the_counts) ... ok
+
+----------------------------------------------------------------------
+Ran 56 tests in 36.377s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

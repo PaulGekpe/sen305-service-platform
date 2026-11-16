@@ -1,0 +1,28 @@
+# Part C2 - Prove row-level visibility
+# generated 2026-11-16 16:25:12 +0100
+
+$ python manage.py shell
+# --- statements typed/pasted into the shell ---
+from django.contrib.auth import get_user_model
+from requests_app.models import Category, ServiceRequest
+from requests_app.selectors import service_request_list
+User = get_user_model()
+owner = User.objects.get(username="requester1")
+other = User.objects.get(username="requester2")
+staff = User.objects.get(username="technician1")
+category, _ = Category.objects.get_or_create(name="ICT Support")
+item = ServiceRequest.objects.create(
+    requester=owner, category=category,
+    title="Laboratory computer cannot start",
+    description="The workstation shows no power indicator.",
+    location="Software Laboratory", priority="HIGH",
+)
+print(service_request_list(user=owner).filter(id=item.id).exists())
+print(service_request_list(user=other).filter(id=item.id).exists())
+print(service_request_list(user=staff).filter(id=item.id).exists())
+# --- output ---
+True
+False
+True
+
+# Expected: owner True, other requester False, staff True

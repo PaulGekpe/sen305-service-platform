@@ -1,0 +1,68 @@
+{
+  "request_id": "2fb1e89e-16d3-4ced-8a62-85d2c399fb66",
+  "steps": [
+    {
+      "no": 1,
+      "action": "Open /requests/ signed out",
+      "expected": "302 redirect to login with next parameter",
+      "observed": "HTTP 302 -> /accounts/login/?next=/requests/; browser landed on /accounts/login/?next=/requests/",
+      "pass": true
+    },
+    {
+      "no": 2,
+      "action": "Sign in as requester1",
+      "expected": "Request list loads",
+      "observed": "Landed on /requests/; heading 'Service requests'",
+      "pass": true
+    },
+    {
+      "no": 3,
+      "action": "Submit empty create form",
+      "expected": "Inline errors; no row created",
+      "observed": "4 inline errors (This field is required.); rows 15 -> 15",
+      "pass": true
+    },
+    {
+      "no": 4,
+      "action": "Create valid HIGH-priority request",
+      "expected": "Redirect to detail; success message",
+      "observed": "Redirected to /requests/2fb1e89e-16d3-4ced-8a62-85d2c399fb66/; message 'Service request created.'; priority 'High'",
+      "pass": true
+    },
+    {
+      "no": 5,
+      "action": "Edit title and location",
+      "expected": "Detail shows new values",
+      "observed": "Detail shows title 'Projector in Room B12 has no HDMI signal' and location 'Room B12, Block B'; message 'Service request updated.'",
+      "pass": true
+    },
+    {
+      "no": 6,
+      "action": "Add a comment",
+      "expected": "Author and timestamp displayed",
+      "observed": "Comment shows author 'requester1' at '16 Nov 2026 16:25'",
+      "pass": true
+    },
+    {
+      "no": 7,
+      "action": "As requester2 paste detail URL",
+      "expected": "404; no owner data disclosed",
+      "observed": "HTTP 404; page text: '404 - Not found The page you asked for does not exist, or you do not have access to it. Return home'",
+      "pass": true
+    },
+    {
+      "no": 8,
+      "action": "As technician1 open request",
+      "expected": "Staff can see it",
+      "observed": "HTTP 200; sees 'Projector in Room B12 has no HDMI signal' and the Assign technician form",
+      "pass": true
+    },
+    {
+      "no": 9,
+      "action": "Use Back after successful POST",
+      "expected": "No duplicate row created",
+      "observed": "rows before 16, after submit 17, after Back 17, after reload 17",
+      "pass": true
+    }
+  ]
+}

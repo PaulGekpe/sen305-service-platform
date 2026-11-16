@@ -1,0 +1,29 @@
+# Part K - Prove transaction rollback
+# generated 2026-11-16 16:25:19 +0100
+
+$ python manage.py shell
+# --- statements typed/pasted into the shell ---
+from django.contrib.auth import get_user_model
+from django.db import transaction
+from requests_app.models import ServiceRequest, WorkOrder
+User = get_user_model()
+item = ServiceRequest.objects.filter(status="OPEN").first()
+technician = User.objects.get(username="technician1")
+before_status = item.status
+before_count = WorkOrder.objects.filter(service_request=item).count()
+try:
+    with transaction.atomic():
+        WorkOrder.objects.create(service_request=item, technician=technician)
+        item.status = "ASSIGNED"
+        item.save(update_fields=["status", "updated_at"])
+        raise RuntimeError("Deliberate failure for rollback test")
+except RuntimeError as exc:
+    print(exc)
+item.refresh_from_db()
+after_count = WorkOrder.objects.filter(service_request=item).count()
+print("status:", before_status, "->", item.status)
+print("work orders:", before_count, "->", after_count)
+# --- output ---
+Deliberate failure for rollback test
+status: OPEN -> OPEN
+work orders: 0 -> 0

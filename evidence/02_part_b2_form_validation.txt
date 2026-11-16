@@ -1,0 +1,18 @@
+# Part B2 - Exercise validation
+# generated 2026-11-16 16:25:11 +0100
+
+$ python manage.py shell
+# --- statements typed/pasted into the shell ---
+from requests_app.forms import ServiceRequestForm
+bad = ServiceRequestForm(data={
+    "category": "", "title": "PC", "description": "",
+    "location": "", "priority": "HIGH",
+})
+print(bad.is_valid())
+print(bad.errors.as_json())
+# --- output ---
+False
+{"category": [{"message": "This field is required.", "code": "required"}], "title": [{"message": "Use at least 8 characters.", "code": ""}], "description": [{"message": "This field is required.", "code": "required"}], "location": [{"message": "This field is required.", "code": "required"}]}
+
+$ python manage.py shell -c "...print(ServiceRequest.objects.count())"   # validation must not save a row
+0

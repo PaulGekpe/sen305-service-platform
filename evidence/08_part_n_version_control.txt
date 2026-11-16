@@ -1,0 +1,46 @@
+# Part N - Version control
+# generated 2026-11-16 16:26:27 +0100
+
+$ git status --short
+ M backend/config/urls.py
+ M backend/core/static/core/css/site.css
+ M backend/core/templates/core/base.html
+ M backend/requests_app/views.py
+?? README.md
+?? backend/requests_app/forms.py
+?? backend/requests_app/selectors.py
+?? backend/requests_app/services.py
+?? backend/requests_app/templates/
+?? backend/requests_app/tests/base.py
+?? backend/requests_app/tests/test_request_crud.py
+?? backend/requests_app/tests/test_request_security.py
+?? backend/requests_app/tests/test_request_workflow.py
+?? backend/requests_app/urls.py
+?? backend/templates/
+
+$ git diff --stat -- backend
+ backend/config/urls.py                |   2 +
+ backend/core/static/core/css/site.css |  30 +++++
+ backend/core/templates/core/base.html |  16 +++
+ backend/requests_app/views.py         | 199 +++++++++++++++++++++++++++++++++-
+ 4 files changed, 245 insertions(+), 2 deletions(-)
+
+$ git check-ignore backend/.env   # prints the path when the file is ignored
+backend/.env
+
+$ python manage.py check
+System check identified no issues (0 silenced).
+
+$ python manage.py test requests_app.tests -v 2
+(full output in 06_part_l_automated_tests.txt: Ran 56 tests ... OK)
+
+$ git add README.md backend requirements.txt .gitignore
+$ git commit -m "feat: add secure server-rendered request workflow"
+
+$ git log --oneline --decorate -5
+758fbf0 (HEAD -> feature/server-rendered-crud) feat: add secure server-rendered request workflow
+04281c3 (develop) chore: Lab 3 baseline (models, migrations, core app)
+
+$ git branch
+  develop
+* feature/server-rendered-crud

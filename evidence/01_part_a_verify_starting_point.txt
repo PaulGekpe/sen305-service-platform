@@ -1,0 +1,30 @@
+# Part A - Verify the Lab Session 3 starting point
+# generated 2026-11-16 16:25:09 +0100
+
+$ git branch --show-current
+feature/server-rendered-crud
+
+$ python manage.py check
+System check identified no issues (0 silenced).
+
+$ python manage.py showmigrations requests_app
+requests_app
+ [X] 0001_initial
+
+$ python manage.py shell -c "from requests_app.models import *; print([f.name for f in ServiceRequest._meta.fields]); print([f.name for f in WorkOrder._meta.fields]); print([f.name for f in Comment._meta.fields])"
+['id', 'requester', 'category', 'title', 'description', 'location', 'priority', 'status', 'resolved_at', 'created_at', 'updated_at']
+['id', 'service_request', 'technician', 'work_notes', 'assigned_at', 'completed_at']
+['id', 'service_request', 'author', 'body', 'is_internal', 'created_at']
+
+$ python manage.py createsuperuser --noinput --username admin --email admin@example.com
+Superuser created successfully.
+
+$ python manage.py shell
+# --- statements typed/pasted into the shell ---
+from django.contrib.auth import get_user_model
+User = get_user_model()
+owner = User.objects.create_user("requester1", password="LabPass123!")
+other = User.objects.create_user("requester2", password="LabPass123!")
+staff = User.objects.create_user("technician1", password="LabPass123!", is_staff=True)
+# --- output ---
+(accounts created)
