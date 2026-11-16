@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Enterprise Service Request and Maintenance Platform</h1>
+<p>Report faults, track progress and follow each request through assignment and resolution.</p>
+{% if user.is_authenticated %}
+<p><a class="button" href="{% url 'requests:list' %}">Go to service requests</a></p>
+{% else %}
+<p><a class="button" href="{% url 'login' %}">Sign in to continue</a></p>
+{% endif %}
+{% endblock %}
